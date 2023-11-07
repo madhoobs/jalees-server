@@ -6,6 +6,9 @@ require('dotenv').config()
 // Port configuration
 const PORT = process.env.PORT || 3000
 
+// Receive MongoDB connection
+const db = require('./db')
+
 // Invoke express functionality
 const app = express()
 
@@ -15,9 +18,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // Import routes
+const AuthRouter = require('./routes/AuthRouter')
 
 // Mount routes
+app.use('/', AuthRouter)
 
+// Temp
 app.get('/', function (req, res) {
   res.send('Jalees Server')
 })
