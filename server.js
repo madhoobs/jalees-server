@@ -19,9 +19,17 @@ app.use(express.urlencoded({ extended: false }))
 
 // Import routes
 const AuthRouter = require('./routes/AuthRouter')
+const CaregiverRouter = require('./routes/CaregiverRouter')
+const ChildRouter = require('./routes/ChildRouter')
+const ReviewRouter = require('./routes/ReviewRouter')
+const SessionRouter = require('./routes/SessionRouter')
 
 // Mount routes
 app.use('/', AuthRouter)
+app.use('/caregiver', CaregiverRouter)
+app.use('/child', ChildRouter)
+app.use('/review', ReviewRouter)
+app.use('/session', SessionRouter)
 
 // Temp
 app.get('/', function (req, res) {
