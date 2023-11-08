@@ -28,7 +28,7 @@ const SessionRouter = require('./routes/SessionRouter')
 app.use('/', AuthRouter)
 app.use('/caregiver', CaregiverRouter)
 app.use('/child', ChildRouter)
-// app.use('/review', ReviewRouter)
+app.use('/review', ReviewRouter)
 // app.use('/session', SessionRouter)
 
 // Temp
