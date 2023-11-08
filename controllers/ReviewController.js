@@ -1,4 +1,4 @@
-const { Review } = require('../models')
+const { Review, Session } = require('../models')
 
 const AddReview = async (req, res) => {
   try {
@@ -37,12 +37,26 @@ const GetUserReviews = async (req, res) => {
   }
 }
 
-const GetSessionReviews = async (req, res) => {
+const GetSessionReview = async (req, res) => {
   try {
     let reviews = await Review.find({ session: req.query.sid })
     return reviews
       ? res.send(reviews)
-      : res.status(400).send('Reviews not found!')
+      : res.status(400).send('Review not found!')
+  } catch (error) {
+    throw error
+  }
+}
+
+const GetCaregiverReviews = async (req, res) => {
+  try {
+    let sessions = await Session.find({ caregiver: req.query.cid })
+    if (sessions) {
+      let reviews = await Review.find({ session: sessions._id })
+      return reviews
+        ? res.send(reviews)
+        : res.status(400).send('Reviews not found!')
+    }
   } catch (error) {
     throw error
   }
@@ -79,7 +93,8 @@ const DeleteReview = async (req, res) => {
 module.exports = {
   GetReview,
   GetUserReviews,
-  GetSessionReviews,
+  GetSessionReview,
+  GetCaregiverReviews,
   AddReview,
   EditReview,
   DeleteReview
