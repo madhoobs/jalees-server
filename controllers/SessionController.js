@@ -48,6 +48,7 @@ const GetCaregiverSessions = async (req, res) => {
 const CreateSession = async (req, res) => {
   try {
     let session = { ...req.body } // include caregiverID
+    session.status = 'pending'
     let newSession = await Session.create(session)
     res.send(newSession)
   } catch (error) {
