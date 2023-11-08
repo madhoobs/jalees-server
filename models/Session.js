@@ -5,8 +5,6 @@ const sessionSchema = new Schema(
     status: { type: String },
     date: { type: Date, required: true },
     place: { type: String, required: true },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
     children: [
       {
         type: Schema.Types.ObjectId,
