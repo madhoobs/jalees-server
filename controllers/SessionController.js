@@ -1,4 +1,4 @@
-const { Session, Child } = require('../models')
+const { Session, Child, Caregiver } = require('../models')
 
 const GetSession = async (req, res) => {
   try {
@@ -24,6 +24,8 @@ const GetChildSessions = async (req, res) => {
 
 const GetChildrenSessions = async (req, res) => {
   try {
+    console.log(res.locals)
+    const { payload } = res.locals
     let children = await Child.find({ guardian: payload.id })
     const sessions = await Session.find({ child: children._id })
       .populate('children')
@@ -49,6 +51,10 @@ const CreateSession = async (req, res) => {
   try {
     let session = { ...req.body } // include caregiverID
     session.status = 'pending'
+    // Get caregiver hourly rate
+    let caregiver = await Caregiver.findById(session.caregiver)
+    session.price = Math.round(session.duration * caregiver.rate * 10) / 10
+    // Create new session
     let newSession = await Session.create(session)
     res.send(newSession)
   } catch (error) {

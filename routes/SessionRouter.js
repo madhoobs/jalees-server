@@ -4,7 +4,12 @@ const middleware = require('../middleware')
 
 router.get('/', controller.GetSession)
 router.get('/child', controller.GetChildSessions)
-router.get('/all', controller.GetChildrenSessions)
+router.get(
+  '/all',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.GetChildrenSessions
+)
 router.get('/caregiver', controller.GetCaregiverSessions)
 router.post(
   '/add',

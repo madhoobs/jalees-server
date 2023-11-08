@@ -3,7 +3,12 @@ const controller = require('../controllers/ChildController')
 const middleware = require('../middleware')
 
 router.get('/', controller.GetChild)
-router.get('/all', controller.GetChildren)
+router.get(
+  '/all',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.GetChildren
+)
 router.post(
   '/add',
   middleware.stripToken,
