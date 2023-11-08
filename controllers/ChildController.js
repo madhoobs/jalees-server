@@ -18,7 +18,7 @@ const GetChild = async (req, res) => {
     let child = await Child.findById({
       _id: req.query.id,
       guardian: payload.id
-    }).populate(sessions)
+    }).populate('sessions')
     // Send child if found
     return child ? res.send(child) : res.status(400).send('Child not found!')
   } catch (error) {

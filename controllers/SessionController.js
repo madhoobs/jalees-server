@@ -24,7 +24,6 @@ const GetChildSessions = async (req, res) => {
 
 const GetChildrenSessions = async (req, res) => {
   try {
-    console.log(res.locals)
     const { payload } = res.locals
     let children = await Child.find({ guardian: payload.id })
     const sessions = await Session.find({ child: children._id })

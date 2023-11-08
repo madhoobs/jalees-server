@@ -2,8 +2,13 @@ const router = require('express').Router()
 const controller = require('../controllers/SessionController')
 const middleware = require('../middleware')
 
-router.get('/', controller.GetSession)
-router.get('/child', controller.GetChildSessions)
+router.get('/details', controller.GetSession)
+router.get(
+  '/child',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.GetChildSessions
+)
 router.get(
   '/all',
   middleware.stripToken,

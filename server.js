@@ -29,7 +29,7 @@ app.use('/', AuthRouter)
 app.use('/caregiver', CaregiverRouter)
 app.use('/child', ChildRouter)
 app.use('/review', ReviewRouter)
-app.use('/session', SessionRouter)
+app.use('/sessions', SessionRouter)
 
 // Temp
 app.get('/', function (req, res) {
