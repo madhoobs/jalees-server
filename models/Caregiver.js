@@ -2,10 +2,8 @@ const { Schema } = require('mongoose')
 
 const caregiverSchema = new Schema(
   {
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
     name: { type: String, required: true },
-    photo: { type: String },
+    photo: { type: String, required: true },
     bio: { type: String, required: true },
     rate: { type: Number, required: true }
   },
