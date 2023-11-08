@@ -1,5 +1,4 @@
 const { Child } = require('../models')
-const middleware = require('../middleware')
 
 const CreateChild = async (req, res) => {
   try {

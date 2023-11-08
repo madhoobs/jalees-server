@@ -1,5 +1,4 @@
 const { Caregiver } = require('../models')
-const middleware = require('../middleware')
 
 const CreateCaregiver = async (req, res) => {
   try {
