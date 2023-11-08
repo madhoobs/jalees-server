@@ -2,6 +2,7 @@ const { Child } = require('../models')
 
 const CreateChild = async (req, res) => {
   try {
+    const { payload } = res.locals
     let child = { ...req.body }
     child.guardian = payload.id
     let newChild = await Child.create(child)
@@ -13,10 +14,11 @@ const CreateChild = async (req, res) => {
 
 const GetChild = async (req, res) => {
   try {
+    const { payload } = res.locals
     let child = await Child.findById({
-      _id: body.query.id,
+      _id: req.query.id,
       guardian: payload.id
-    })
+    }).populate(sessions)
     // Send child if found
     return child ? res.send(child) : res.status(400).send('Child not found!')
   } catch (error) {
@@ -26,6 +28,7 @@ const GetChild = async (req, res) => {
 
 const GetChildren = async (req, res) => {
   try {
+    const { payload } = res.locals
     let children = await Child.find({ guardian: payload.id })
     // Send children if found
     return children
@@ -56,8 +59,9 @@ const UpdateChild = async (req, res) => {
 
 const DeleteChild = async (req, res) => {
   try {
-    await Child.findByIdAndDelete({
-      _id: body.query.id,
+    const { payload } = res.locals
+    await Child.findOneAndDelete({
+      _id: req.query.id,
       guardian: payload.id
     })
     res.send({

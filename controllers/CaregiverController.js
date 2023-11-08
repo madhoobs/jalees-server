@@ -61,7 +61,10 @@ const UpdateCaregiver = async (req, res) => {
 
 const DeleteCaregiver = async (req, res) => {
   try {
-    await Caregiver.findByIdAndDelete(req.query.id)
+    await Caregiver.findOneAndDelete({
+      _id: req.query.id,
+      guardian: payload.id
+    })
     res.send({
       msg: 'Caregiver Deleted',
       status: 'Ok'

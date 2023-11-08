@@ -1,4 +1,4 @@
-const { Review, Session } = require('../models')
+const { Review, Session, Child } = require('../models')
 
 const AddReview = async (req, res) => {
   try {
@@ -17,7 +17,7 @@ const AddReview = async (req, res) => {
 
 const GetReview = async (req, res) => {
   try {
-    let reviews = await Review.findById(req.query.id)
+    let reviews = await Review.findById(req.query.id).populate(session)
     return reviews
       ? res.send(reviews)
       : res.status(400).send('Reviews not found!')
@@ -64,6 +64,7 @@ const GetCaregiverReviews = async (req, res) => {
 
 const EditReview = async (req, res) => {
   try {
+    const { payload } = res.locals
     const review = await Review.findOneAndUpdate(
       { _id: req.query.id, guardian: payload.id },
       req.body,
@@ -79,7 +80,9 @@ const EditReview = async (req, res) => {
 
 const DeleteReview = async (req, res) => {
   try {
-    await Review.findOneAndDelete({ _id: req.query.id, guardian: payload.id })
+    const { payload } = res.locals
+    let children = await Child.find({ guardian: payload.id })
+    await Review.findOneAndDelete({ _id: req.query.id, children: children })
     res.send({
       msg: 'Review Deleted',
       payload: req.query.id,
