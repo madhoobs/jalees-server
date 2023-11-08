@@ -1,4 +1,79 @@
 const { Child } = require('../models')
 const middleware = require('../middleware')
 
-module.exports = {}
+const CreateChild = async (req, res) => {
+  try {
+    let child = { ...req.body }
+    child.guardian = payload.id
+    let newChild = await Child.create(child)
+    res.send(newChild)
+  } catch (error) {
+    throw error
+  }
+}
+
+const GetChild = async (req, res) => {
+  try {
+    let child = await Child.findById({
+      _id: body.query.id,
+      guardian: payload.id
+    })
+    // Send child if found
+    return child ? res.send(child) : res.status(400).send('Child not found!')
+  } catch (error) {
+    throw error
+  }
+}
+
+const GetChildren = async (req, res) => {
+  try {
+    let children = await Child.find({ guardian: payload.id })
+    // Send children if found
+    return children
+      ? res.send(children)
+      : res.status(400).send('Children not found!')
+  } catch (error) {
+    throw error
+  }
+}
+
+const UpdateChild = async (req, res) => {
+  try {
+    const { name, age, relationship, notes } = req.body
+    let child = await Child.findOneAndUpdate(
+      { _id: req.query.id },
+      {
+        name,
+        age,
+        relationship,
+        notes
+      }
+    )
+    res.send(child)
+  } catch (error) {
+    throw error
+  }
+}
+
+const DeleteChild = async (req, res) => {
+  try {
+    await Child.findByIdAndDelete({
+      _id: body.query.id,
+      guardian: payload.id
+    })
+    res.send({
+      msg: 'Child Removed!',
+      status: 'Ok'
+    })
+  } catch (error) {
+    throw error
+  }
+}
+
+module.exports = {
+  CreateChild,
+  GetChild,
+  GetChildren,
+  UpdateChild,
+  DeleteChild
+}

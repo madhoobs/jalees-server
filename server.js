@@ -27,7 +27,7 @@ const SessionRouter = require('./routes/SessionRouter')
 // Mount routes
 app.use('/', AuthRouter)
 app.use('/caregiver', CaregiverRouter)
-// app.use('/child', ChildRouter)
+app.use('/child', ChildRouter)
 // app.use('/review', ReviewRouter)
 // app.use('/session', SessionRouter)
 
