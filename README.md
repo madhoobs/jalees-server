@@ -9,11 +9,12 @@
 <h4 align="center">Platform for finding trustworthy caregivers for children.</h4>
 
 <p align="center">
-  <a href="#technologies">Technologies</a> •
   <a href="#key-features">Key Features</a> •
-  <a href="#erd">ERD</a> •
+  <a href="#technologies">Technologies</a> •
+  <a href="#entity-relationship-diagram">ERD</a> •
   <!-- <a href="#how-to-use">How To Use</a> • -->
-  <a href="#credits">Credits</a>
+  <a href="#credits">Credits</a> •
+  <a href="#contact">Contact</a>
 </p>
 
 <!-- ![screenshot](url_here) -->
@@ -31,7 +32,17 @@
 
 This project is built using MERN stack.
 
-![Tech](https://skillicons.dev/icons?i=html,css,js,mongo,express,react,nodejs,figma)
+<div align="center">
+
+![Tech](https://skillicons.dev/icons?i=html,css,js) <br/>
+![Stack](https://skillicons.dev/icons?i=mongo,express,react,nodejs) <br/>
+![Tech](https://skillicons.dev/icons?i=vite,vscode,figma)
+
+</div>
+
+## Entity Relationship Diagram
+
+![ERD](./images/ERD.png)
 
 ## Credits
 
