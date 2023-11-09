@@ -48,13 +48,21 @@ const GetCaregiverSessions = async (req, res) => {
 
 const CreateSession = async (req, res) => {
   try {
-    let session = { ...req.body } // include caregiverID
+    let session = { ...req.body } // include caregiverID and childrenIDs
     session.status = 'pending'
     // Get caregiver hourly rate
     let caregiver = await Caregiver.findById(session.caregiver)
-    session.price = Math.round(session.duration * caregiver.rate * 10) / 10
+    session.price = Math.round(session.duration * caregiver.rate * 10) / 10 // Round price to one decimal
     // Create new session
     let newSession = await Session.create(session)
+    // Add session to children
+    session.children.forEach(async (child) => {
+      let sessionChild = await Child.findById(child)
+      sessionChild.sessions.push(newSession._id)
+      sessionChild.save().catch((err) => {
+        console.log('Adding session to child failed. ' + err)
+      })
+    })
     res.send(newSession)
   } catch (error) {
     throw error
@@ -75,6 +83,7 @@ const UpdateSession = async (req, res) => {
 const DeleteSession = async (req, res) => {
   try {
     await Session.deleteOne({ _id: req.params.session_id })
+    // Delete session from all childs?
     res.send({
       msg: 'Session Deleted',
       payload: req.params.session_id,
