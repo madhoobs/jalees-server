@@ -89,7 +89,8 @@ const GetCaregiverRating = async (req, res) => {
       rating += review.rating
     })
     rating = {
-      rating: rating / caregiverReviews.length
+      rating: rating / caregiverReviews.length,
+      reviews: caregiverReviews.length
     }
     return rating
       ? res.send(rating)
@@ -98,25 +99,6 @@ const GetCaregiverRating = async (req, res) => {
     throw error
   }
 }
-
-// const GetCaregiverRating = async (req, res) => {
-//   try {
-//     let sessions = await Session.find({ caregiver: req.query.cid })
-//     if (sessions) {
-//       let reviews = await Review.find({ session: sessions._id })
-//       const rating = 0
-//       reviews.forEach((review) => {
-//         rating += review.rating
-//       })
-//       rating /= reviews.length
-//       return rating
-//         ? res.send(rating)
-//         : res.status(400).send('Ratings not found!')
-//     }
-//   } catch (error) {
-//     throw error
-//   }
-// }
 
 const EditReview = async (req, res) => {
   try {
