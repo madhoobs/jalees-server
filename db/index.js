@@ -8,7 +8,7 @@ mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     // Connection message
-    console.log('Connected to MongoDB')
+    console.log('>> Connected to MongoDB')
   })
   .catch((e) => {
     // cannot connect message

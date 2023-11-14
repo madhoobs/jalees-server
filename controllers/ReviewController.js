@@ -5,10 +5,16 @@ const AddReview = async (req, res) => {
     let review = { ...req.body }
     // Get UserID from payload and add it to the new review
     const { payload } = res.locals
-    review.user = payload.id
+    review.guardian = payload.id
     // Add SessionID in the new review
     review.session = req.body.sessionID
     let newReview = await Review.create(review)
+    // Add review to session
+    let session = await Session.findById(review.session)
+    session.review = newReview._id
+    session.save().catch((err) => {
+      console.log('Adding review to session failed. ' + err)
+    })
     res.send(newReview)
   } catch (error) {
     throw error
@@ -17,7 +23,7 @@ const AddReview = async (req, res) => {
 
 const GetReview = async (req, res) => {
   try {
-    let reviews = await Review.findById(req.query.id).populate(session)
+    let reviews = await Review.findById(req.query.id).populate('session')
     return reviews
       ? res.send(reviews)
       : res.status(400).send('Reviews not found!')
@@ -50,17 +56,67 @@ const GetSessionReview = async (req, res) => {
 
 const GetCaregiverReviews = async (req, res) => {
   try {
-    let sessions = await Session.find({ caregiver: req.query.cid })
-    if (sessions) {
-      let reviews = await Review.find({ session: sessions._id })
-      return reviews
-        ? res.send(reviews)
-        : res.status(400).send('Reviews not found!')
-    }
+    let sessions = await Session.find({ caregiver: req.query.cid }).populate(
+      'review'
+    )
+    const caregiverReviews = []
+    sessions.forEach((session) => {
+      if (session.review) {
+        caregiverReviews.push(session.review)
+      }
+    })
+    return caregiverReviews
+      ? res.send(caregiverReviews)
+      : res.status(400).send('Reviews not found!')
   } catch (error) {
     throw error
   }
 }
+
+const GetCaregiverRating = async (req, res) => {
+  try {
+    let sessions = await Session.find({ caregiver: req.query.cid }).populate(
+      'review'
+    )
+    const caregiverReviews = []
+    sessions.forEach((session) => {
+      if (session.review) {
+        caregiverReviews.push(session.review)
+      }
+    })
+    let rating = 0
+    caregiverReviews.forEach((review) => {
+      rating += review.rating
+    })
+    rating = {
+      rating: rating / caregiverReviews.length
+    }
+    return rating
+      ? res.send(rating)
+      : res.status(400).send('Ratings not found!')
+  } catch (error) {
+    throw error
+  }
+}
+
+// const GetCaregiverRating = async (req, res) => {
+//   try {
+//     let sessions = await Session.find({ caregiver: req.query.cid })
+//     if (sessions) {
+//       let reviews = await Review.find({ session: sessions._id })
+//       const rating = 0
+//       reviews.forEach((review) => {
+//         rating += review.rating
+//       })
+//       rating /= reviews.length
+//       return rating
+//         ? res.send(rating)
+//         : res.status(400).send('Ratings not found!')
+//     }
+//   } catch (error) {
+//     throw error
+//   }
+// }
 
 const EditReview = async (req, res) => {
   try {
@@ -98,6 +154,7 @@ module.exports = {
   GetUserReviews,
   GetSessionReview,
   GetCaregiverReviews,
+  GetCaregiverRating,
   AddReview,
   EditReview,
   DeleteReview

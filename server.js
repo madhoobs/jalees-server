@@ -38,5 +38,8 @@ app.get('/', function (req, res) {
 
 // Listen to requests on port
 app.listen(PORT, function () {
-  console.log(`Jalees server is running on port ${PORT}`)
+  console.log(`
+░░█ ▄▀█ █░░ █▀▀ █▀▀ █▀
+█▄█ █▀█ █▄▄ ██▄ ██▄ ▄█
+Jalees Server is running on port ${PORT}`)
 })

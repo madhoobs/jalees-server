@@ -6,6 +6,7 @@ router.get('/', controller.GetReview)
 router.get('/user', controller.GetUserReviews)
 router.get('/session', controller.GetSessionReview)
 router.get('/caregiver', controller.GetCaregiverReviews)
+router.get('/caregiver-rating', controller.GetCaregiverRating)
 router.post(
   '/add',
   middleware.stripToken,

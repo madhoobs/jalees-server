@@ -16,6 +16,10 @@ const sessionSchema = new Schema(
     caregiver: {
       type: Schema.Types.ObjectId,
       ref: 'Caregiver'
+    },
+    review: {
+      type: Schema.Types.ObjectId,
+      ref: 'Review'
     }
   },
   { timestamps: true }
