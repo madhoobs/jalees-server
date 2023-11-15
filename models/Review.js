@@ -2,7 +2,7 @@ const { Schema } = require('mongoose')
 
 const reviewSchema = new Schema(
   {
-    rating: { type: Number, min: 1, max: 5, required: true },
+    rating: { type: Number, min: 1, max: 5 },
     comment: { type: String },
     guardian: {
       type: Schema.Types.ObjectId,

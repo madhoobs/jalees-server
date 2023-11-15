@@ -45,7 +45,7 @@ const GetUserReviews = async (req, res) => {
 
 const GetSessionReview = async (req, res) => {
   try {
-    let reviews = await Review.find({ session: req.query.sid })
+    let reviews = await Review.findById(req.query.sid)
     return reviews
       ? res.send(reviews)
       : res.status(400).send('Review not found!')
