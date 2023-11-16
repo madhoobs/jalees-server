@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://i.ibb.co/9WSFdvz/logo-01.png" alt="Jalees" width="150" />
+  <img src="https://i.ibb.co/NTkKcfQ/logo-app.png" alt="Jalees" width="150" />
   <br>
   Jalees
   <br>
@@ -9,12 +9,12 @@
 <h4 align="center">Platform for finding trustworthy caregivers for children.</h4>
 
 <p align="center">
-  <a href="#key-features">Key Features</a> •
   <a href="#technologies">Technologies</a> •
-  <a href="#entity-relationship-diagram">ERD</a> •
+  <a href="#key-features">Key Features</a> •
+  <a href="#erd">ERD</a> •
   <!-- <a href="#how-to-use">How To Use</a> • -->
-  <a href="#credits">Credits</a> •
-  <a href="#contact">Contact</a>
+  <a href="#future-work">Future Work</a> •
+  <a href="#credits">Credits</a>
 </p>
 
 <!-- ![screenshot](url_here) -->
@@ -28,6 +28,8 @@
   - Book a babysitting session
 - See babysitter reviews and add a review on session
 
+Progress shown in [Trello workspace](https://trello.com/b/3N7fD2Q9/mvp)
+
 ## Technologies
 
 This project is built using MERN stack.
@@ -36,13 +38,16 @@ This project is built using MERN stack.
 
 ![Tech](https://skillicons.dev/icons?i=html,css,js) <br/>
 ![Stack](https://skillicons.dev/icons?i=mongo,express,react,nodejs) <br/>
-![Tech](https://skillicons.dev/icons?i=vite,vscode,figma)
+![Tech](https://skillicons.dev/icons?i=mui,vite,vscode,figma)
 
 </div>
 
-## Entity Relationship Diagram
+## Future Work
 
-![ERD](./images/ERD.png)
+- Improve UI/UX
+- Develop mobile app version
+- Translate to Arabic
+- Add Scheduling: avoid conflicts in time when booking sessions
 
 ## Credits
 
