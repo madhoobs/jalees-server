@@ -2,9 +2,8 @@ const { Session, Child, Caregiver } = require('../models')
 
 const GetSession = async (req, res) => {
   try {
-    const session = await Session.findById(req.query.id)
-      .populate('children')
-      .populate('caregiver')
+    const session = await Session.findById(req.query.id).populate('caregiver')
+    // .populate('children')
     res.send(session)
   } catch (error) {
     throw error
@@ -69,6 +68,22 @@ const CreateSession = async (req, res) => {
   }
 }
 
+const CreateGuestSession = async (req, res) => {
+  try {
+    // This api is to create a session request without logging in
+    let session = { ...req.body } // include caregiverID and childrenIDs
+    session.status = 'pending'
+    // Get caregiver hourly rate
+    let caregiver = await Caregiver.findById(session.caregiver)
+    session.price = Math.round(session.duration * caregiver.rate * 10) / 10 // Round price to one decimal
+    // Create new session
+    let newSession = await Session.create(session)
+    res.send(newSession)
+  } catch (error) {
+    throw error
+  }
+}
+
 const UpdateSession = async (req, res) => {
   try {
     const session = await Session.findByIdAndUpdate(req.query.sid, req.body, {
@@ -101,5 +116,6 @@ module.exports = {
   GetCaregiverSessions,
   CreateSession,
   UpdateSession,
-  DeleteSession
+  DeleteSession,
+  CreateGuestSession
 }

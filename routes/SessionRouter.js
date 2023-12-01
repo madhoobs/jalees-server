@@ -22,6 +22,7 @@ router.post(
   middleware.verifyToken,
   controller.CreateSession
 )
+router.post('/guestAdd', controller.CreateGuestSession)
 router.put(
   '/edit',
   middleware.stripToken,
